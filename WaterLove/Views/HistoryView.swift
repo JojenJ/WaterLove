@@ -16,6 +16,7 @@ struct HistoryView: View {
                 VStack(spacing: 18) {
                     header
                     weekStats
+                    emptyStateHint
                     recentDays
                 }
                 .padding(.horizontal, 20)
@@ -54,6 +55,34 @@ struct HistoryView: View {
         }
     }
 
+    @ViewBuilder
+    private var emptyStateHint: some View {
+        if !viewModel.hasAnyRecords {
+            HStack(alignment: .top, spacing: 12) {
+                Image(systemName: "drop.triangle.fill")
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundStyle(AppColors.waterBlue)
+                    .accessibilityHidden(true)
+
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("还没有喝水记录")
+                        .font(.headline)
+                        .foregroundStyle(AppColors.ink)
+
+                    Text("回到首页记录第一杯水后，这里会自动生成最近 7 天的打卡表。")
+                        .font(.subheadline)
+                        .foregroundStyle(AppColors.secondaryInk)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                Spacer(minLength: 0)
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity)
+            .appCard()
+        }
+    }
+
     private var weekStats: some View {
         HStack(spacing: 10) {
             statCard(title: "总喝水", value: viewModel.totalAmountText, icon: "drop.fill", color: AppColors.waterBlue)
@@ -82,11 +111,7 @@ struct HistoryView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
-        .background(.white.opacity(0.72), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(.white.opacity(0.7), lineWidth: 1)
-        }
+        .appCard(cornerRadius: 22, shadowOpacity: 0.04)
     }
 
     private var recentDays: some View {

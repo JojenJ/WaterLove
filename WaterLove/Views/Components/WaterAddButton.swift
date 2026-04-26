@@ -61,11 +61,7 @@ private struct WaterAddButtonStyle: ButtonStyle {
                 endPoint: .bottomTrailing
             ))
         } else {
-            AnyShapeStyle(LinearGradient(
-                colors: [.white.opacity(0.78), .white.opacity(0.56)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ))
+            AnyShapeStyle(AppColors.cardBackground)
         }
     }
 }

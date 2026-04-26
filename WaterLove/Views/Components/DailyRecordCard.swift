@@ -19,12 +19,7 @@ struct DailyRecordCard: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity)
-        .background(.white.opacity(0.74), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(.white.opacity(0.7), lineWidth: 1)
-        }
-        .shadow(color: .black.opacity(0.04), radius: 12, y: 6)
+        .appCard(shadowOpacity: 0.04)
         .accessibilityElement(children: .combine)
     }
 

@@ -74,8 +74,7 @@ struct HomeView: View {
         }
         .padding(22)
         .frame(maxWidth: .infinity)
-        .background(.white.opacity(0.76), in: RoundedRectangle(cornerRadius: 30, style: .continuous))
-        .shadow(color: .black.opacity(0.07), radius: 20, y: 12)
+        .appCard(cornerRadius: 30, shadowOpacity: 0.07)
     }
 
     private var metricRow: some View {
@@ -140,11 +139,7 @@ struct HomeView: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity)
-        .background(.white.opacity(0.68), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(.white.opacity(0.7), lineWidth: 1)
-        }
+        .appCard()
     }
 
     private var quickAddSection: some View {

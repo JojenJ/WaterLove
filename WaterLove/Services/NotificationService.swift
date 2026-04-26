@@ -119,6 +119,8 @@ final class NotificationService {
             throw NotificationServiceError.notAuthorized
         }
 
+        await cancelPendingTestNotifications()
+
         let currentSettings = settings ?? settingsStore.settings
         let progress = progressSnapshot(for: currentSettings)
         let scenario = scenario(
@@ -207,6 +209,12 @@ final class NotificationService {
                 continuation.resume(returning: identifiers)
             }
         }
+    }
+
+    private func cancelPendingTestNotifications() async {
+        let identifiers = await pendingRequestIdentifiers(withPrefix: testIdentifierPrefix)
+        guard !identifiers.isEmpty else { return }
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
     }
 
     private func reminderSlots(for settings: UserSettings) -> [ReminderSlot] {

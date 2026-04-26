@@ -80,11 +80,7 @@ struct SettingsView: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity)
-        .background(.white.opacity(0.74), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(.white.opacity(0.7), lineWidth: 1)
-        }
+        .appCard()
     }
 
     private var personalCard: some View {
@@ -134,24 +130,14 @@ struct SettingsView: View {
 
             Divider()
 
-            HStack(spacing: 10) {
-                Button {
-                    viewModel.scheduleTestNotification()
-                } label: {
-                    Label("测试通知", systemImage: "paperplane.fill")
-                        .frame(maxWidth: .infinity)
+            ViewThatFits {
+                HStack(spacing: 10) {
+                    notificationActionButtons
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(AppColors.waterBlue)
 
-                Button {
-                    viewModel.rescheduleNotifications()
-                } label: {
-                    Label("重新生成", systemImage: "arrow.clockwise")
-                        .frame(maxWidth: .infinity)
+                VStack(spacing: 10) {
+                    notificationActionButtons
                 }
-                .buttonStyle(.bordered)
-                .tint(AppColors.lilac)
             }
             .font(.subheadline.weight(.semibold))
             .disabled(viewModel.isNotificationBusy)
@@ -209,11 +195,7 @@ struct SettingsView: View {
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.white.opacity(0.74), in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(.white.opacity(0.7), lineWidth: 1)
-        }
+        .appCard()
     }
 
     private func settingValueRow(title: String, value: String) -> some View {
@@ -233,6 +215,28 @@ struct SettingsView: View {
 
     private func intervalLabel(for minutes: Int) -> String {
         minutes < 60 ? "\(minutes) 分钟" : "\(minutes / 60) 小时"
+    }
+
+    private var notificationActionButtons: some View {
+        Group {
+            Button {
+                viewModel.scheduleTestNotification()
+            } label: {
+                Label("测试通知", systemImage: "paperplane.fill")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(AppColors.waterBlue)
+
+            Button {
+                viewModel.rescheduleNotifications()
+            } label: {
+                Label("重新生成", systemImage: "arrow.clockwise")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .tint(AppColors.lilac)
+        }
     }
 
     private var nicknameBinding: Binding<String> {
