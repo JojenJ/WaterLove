@@ -1,7 +1,5 @@
 import Foundation
-import Observation
 
-@Observable
 final class WaterRecordStore {
     private(set) var records: [WaterRecord] = []
 
