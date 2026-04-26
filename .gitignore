@@ -1,0 +1,14 @@
+# Xcode
+DerivedData/
+build/
+*.xcresult
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# User-specific Xcode state
+*.xcuserstate
+xcuserdata/
+
+# macOS
+.DS_Store
