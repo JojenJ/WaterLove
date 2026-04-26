@@ -8,4 +8,8 @@ enum DateUtils {
     static func startOfDay(for date: Date, calendar: Calendar = .current) -> Date {
         calendar.startOfDay(for: date)
     }
+
+    static func timeText(from date: Date) -> String {
+        date.formatted(date: .omitted, time: .shortened)
+    }
 }

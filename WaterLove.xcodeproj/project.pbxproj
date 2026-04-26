@@ -21,6 +21,7 @@
 		1A000001000000000000000C /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A000002000000000000000C /* DateUtils.swift */; };
 		1A000001000000000000000D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A000002000000000000000D /* Constants.swift */; };
 		1A000001000000000000000E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A000002000000000000000E /* Assets.xcassets */; };
+		1A000001000000000000000F /* WaterRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000010 /* WaterRecordStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		1A000002000000000000000D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1A000002000000000000000E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A000002000000000000000F /* WaterLove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterLove.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0000020000000000000010 /* WaterRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterRecordStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		1A0000040000000000000006 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1A0000020000000000000010 /* WaterRecordStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				1A000001000000000000000B /* SettingsViewModel.swift in Sources */,
 				1A000001000000000000000C /* DateUtils.swift in Sources */,
 				1A000001000000000000000D /* Constants.swift in Sources */,
+				1A000001000000000000000F /* WaterRecordStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

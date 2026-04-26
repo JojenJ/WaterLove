@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct MainTabView: View {
+    let recordStore: WaterRecordStore
+
     var body: some View {
         TabView {
             NavigationStack {
-                HomeView()
+                HomeView(recordStore: recordStore)
             }
             .tabItem {
                 Label("首页", systemImage: "drop.fill")
@@ -29,5 +31,5 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView()
+    MainTabView(recordStore: WaterRecordStore.preview)
 }
