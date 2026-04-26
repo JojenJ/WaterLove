@@ -66,7 +66,7 @@ final class WaterRecordStore {
         guard dayCount > 0 else { return [] }
 
         let today = calendar.startOfDay(for: Date())
-        let summaries = (0..<dayCount).compactMap { offset in
+        let summaries: [DailyWaterSummary] = (0..<dayCount).compactMap { offset -> DailyWaterSummary? in
             guard let date = calendar.date(byAdding: .day, value: -offset, to: today) else {
                 return nil
             }
