@@ -3,6 +3,7 @@ import SwiftUI
 struct MainTabView: View {
     let recordStore: WaterRecordStore
     let settingsStore: UserSettingsStore
+    let notificationService: NotificationService
 
     var body: some View {
         TabView {
@@ -21,7 +22,7 @@ struct MainTabView: View {
             }
 
             NavigationStack {
-                SettingsView(settingsStore: settingsStore)
+                SettingsView(settingsStore: settingsStore, notificationService: notificationService)
             }
             .tabItem {
                 Label("设置", systemImage: "gearshape.fill")
@@ -32,5 +33,11 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView(recordStore: WaterRecordStore.preview, settingsStore: UserSettingsStore.preview)
+    let recordStore = WaterRecordStore.preview
+    let settingsStore = UserSettingsStore.preview
+    MainTabView(
+        recordStore: recordStore,
+        settingsStore: settingsStore,
+        notificationService: NotificationService(recordStore: recordStore, settingsStore: settingsStore)
+    )
 }

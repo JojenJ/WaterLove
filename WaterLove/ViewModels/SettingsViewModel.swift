@@ -1,11 +1,13 @@
 import Foundation
 import Observation
 
+@MainActor
 @Observable
 final class SettingsViewModel {
     let reminderIntervalOptions = [30, 60, 120]
 
     private let settingsStore: UserSettingsStore
+    private let notificationService: NotificationService
 
     var nickname: String
     var dailyTargetAmountML: Int
@@ -16,9 +18,11 @@ final class SettingsViewModel {
     var isReminderEnabled: Bool
     var notificationTone: NotificationTone
     var statusMessage = "设置已保存"
+    var isNotificationBusy = false
 
-    init(settingsStore: UserSettingsStore) {
+    init(settingsStore: UserSettingsStore, notificationService: NotificationService) {
         self.settingsStore = settingsStore
+        self.notificationService = notificationService
 
         let settings = settingsStore.settings
         nickname = settings.nickname
@@ -91,12 +95,87 @@ final class SettingsViewModel {
 
     func updateReminderEnabled(_ newValue: Bool) {
         isReminderEnabled = newValue
-        save(status: newValue ? "提醒已开启" : "提醒已关闭")
+        save(status: newValue ? "正在请求通知权限" : "提醒已关闭", shouldReschedule: false)
+
+        if newValue {
+            requestAuthorizationAndSchedule()
+        } else {
+            cancelReminders()
+        }
     }
 
     func updateNotificationTone(_ newValue: NotificationTone) {
         notificationTone = newValue
         save(status: "通知语气已保存")
+    }
+
+    func requestAuthorizationAndSchedule() {
+        isNotificationBusy = true
+        statusMessage = "正在请求通知权限"
+
+        Task {
+            let granted = await notificationService.requestAuthorization()
+            guard granted else {
+                isReminderEnabled = false
+                settingsStore.update(currentSettings())
+                statusMessage = "通知权限未开启，请在系统设置中允许通知"
+                isNotificationBusy = false
+                return
+            }
+
+            do {
+                let count = try await notificationService.scheduleDailyWaterReminders(settings: currentSettings())
+                statusMessage = "提醒已更新，已安排 \(count) 个时间点"
+            } catch {
+                statusMessage = friendlyMessage(for: error)
+            }
+
+            isNotificationBusy = false
+        }
+    }
+
+    func scheduleTestNotification() {
+        isNotificationBusy = true
+        statusMessage = "正在安排测试通知"
+
+        Task {
+            let granted = await notificationService.requestAuthorization()
+            guard granted else {
+                statusMessage = "通知权限未开启，请在系统设置中允许通知"
+                isNotificationBusy = false
+                return
+            }
+
+            do {
+                try await notificationService.scheduleTestNotification(settings: currentSettings())
+                statusMessage = "测试通知已安排，5 秒后送达"
+            } catch {
+                statusMessage = friendlyMessage(for: error)
+            }
+
+            isNotificationBusy = false
+        }
+    }
+
+    func rescheduleNotifications() {
+        guard isReminderEnabled else {
+            statusMessage = "请先开启喝水提醒"
+            return
+        }
+
+        isNotificationBusy = true
+        statusMessage = "正在重新生成提醒"
+
+        Task {
+            do {
+                let count = try await notificationService.scheduleDailyWaterReminders(settings: currentSettings())
+                statusMessage = "提醒已重新生成，共 \(count) 个时间点"
+            } catch {
+                statusMessage = friendlyMessage(for: error)
+            }
+
+            isNotificationBusy = false
+        }
     }
 
     func resetToDefaults() {
@@ -117,11 +196,19 @@ final class SettingsViewModel {
         notificationTone = defaultSettings.notificationTone
         settingsStore.resetToDefault()
         statusMessage = "已恢复默认设置"
+
+        Task {
+            await notificationService.cancelAllWaterReminders()
+        }
     }
 
-    private func save(status: String) {
+    private func save(status: String, shouldReschedule: Bool = true) {
         settingsStore.update(currentSettings())
         statusMessage = status
+
+        if shouldReschedule {
+            rescheduleNotificationsAfterSettingsChange()
+        }
     }
 
     private func currentSettings() -> UserSettings {
@@ -155,5 +242,39 @@ final class SettingsViewModel {
             let adjustedStart = max(endMinutes - 60, 0)
             reminderStartDate = DateUtils.dateForTime(hour: adjustedStart / 60, minute: adjustedStart % 60)
         }
+    }
+
+    private func rescheduleNotificationsAfterSettingsChange() {
+        guard isReminderEnabled else { return }
+
+        isNotificationBusy = true
+        Task {
+            do {
+                let count = try await notificationService.scheduleDailyWaterReminders(settings: currentSettings())
+                statusMessage = "提醒已更新，共 \(count) 个时间点"
+            } catch {
+                statusMessage = friendlyMessage(for: error)
+            }
+
+            isNotificationBusy = false
+        }
+    }
+
+    private func cancelReminders() {
+        isNotificationBusy = true
+        Task {
+            await notificationService.cancelAllWaterReminders()
+            statusMessage = "提醒已关闭"
+            isNotificationBusy = false
+        }
+    }
+
+    private func friendlyMessage(for error: Error) -> String {
+        if let localizedError = error as? LocalizedError,
+           let description = localizedError.errorDescription {
+            return description
+        }
+
+        return error.localizedDescription
     }
 }

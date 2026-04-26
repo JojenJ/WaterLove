@@ -26,6 +26,9 @@
 		1A0000010000000000000011 /* WaterAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000012 /* WaterAddButton.swift */; };
 		1A0000010000000000000012 /* DailyRecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000013 /* DailyRecordCard.swift */; };
 		1A0000010000000000000013 /* UserSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000014 /* UserSettingsStore.swift */; };
+		1A0000010000000000000014 /* NotificationMessageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000015 /* NotificationMessageProvider.swift */; };
+		1A0000010000000000000015 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000016 /* NotificationService.swift */; };
+		1A0000010000000000000016 /* NotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000017 /* NotificationDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,9 @@
 		1A0000020000000000000012 /* WaterAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterAddButton.swift; sourceTree = "<group>"; };
 		1A0000020000000000000013 /* DailyRecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordCard.swift; sourceTree = "<group>"; };
 		1A0000020000000000000014 /* UserSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsStore.swift; sourceTree = "<group>"; };
+		1A0000020000000000000015 /* NotificationMessageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMessageProvider.swift; sourceTree = "<group>"; };
+		1A0000020000000000000016 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		1A0000020000000000000017 /* NotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,9 @@
 			children = (
 				1A0000020000000000000010 /* WaterRecordStore.swift */,
 				1A0000020000000000000014 /* UserSettingsStore.swift */,
+				1A0000020000000000000015 /* NotificationMessageProvider.swift */,
+				1A0000020000000000000016 /* NotificationService.swift */,
+				1A0000020000000000000017 /* NotificationDelegate.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -239,6 +248,9 @@
 				1A0000010000000000000011 /* WaterAddButton.swift in Sources */,
 				1A0000010000000000000012 /* DailyRecordCard.swift in Sources */,
 				1A0000010000000000000013 /* UserSettingsStore.swift in Sources */,
+				1A0000010000000000000014 /* NotificationMessageProvider.swift in Sources */,
+				1A0000010000000000000015 /* NotificationService.swift in Sources */,
+				1A0000010000000000000016 /* NotificationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

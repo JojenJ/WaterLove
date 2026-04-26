@@ -3,8 +3,13 @@ import SwiftUI
 struct SettingsView: View {
     @State private var viewModel: SettingsViewModel
 
-    init(settingsStore: UserSettingsStore) {
-        _viewModel = State(initialValue: SettingsViewModel(settingsStore: settingsStore))
+    init(settingsStore: UserSettingsStore, notificationService: NotificationService) {
+        _viewModel = State(
+            initialValue: SettingsViewModel(
+                settingsStore: settingsStore,
+                notificationService: notificationService
+            )
+        )
     }
 
     var body: some View {
@@ -126,6 +131,30 @@ struct SettingsView: View {
                 }
             }
             .font(.subheadline.weight(.semibold))
+
+            Divider()
+
+            HStack(spacing: 10) {
+                Button {
+                    viewModel.scheduleTestNotification()
+                } label: {
+                    Label("测试通知", systemImage: "paperplane.fill")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(AppColors.waterBlue)
+
+                Button {
+                    viewModel.rescheduleNotifications()
+                } label: {
+                    Label("重新生成", systemImage: "arrow.clockwise")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .tint(AppColors.lilac)
+            }
+            .font(.subheadline.weight(.semibold))
+            .disabled(viewModel.isNotificationBusy)
         }
     }
 
@@ -265,6 +294,11 @@ struct SettingsView: View {
 
 #Preview {
     NavigationStack {
-        SettingsView(settingsStore: UserSettingsStore.preview)
+        let recordStore = WaterRecordStore.preview
+        let settingsStore = UserSettingsStore.preview
+        SettingsView(
+            settingsStore: settingsStore,
+            notificationService: NotificationService(recordStore: recordStore, settingsStore: settingsStore)
+        )
     }
 }
