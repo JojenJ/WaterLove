@@ -13,7 +13,7 @@ struct MainTabView: View {
             }
 
             NavigationStack {
-                HistoryView()
+                HistoryView(recordStore: recordStore)
             }
             .tabItem {
                 Label("记录", systemImage: "calendar")

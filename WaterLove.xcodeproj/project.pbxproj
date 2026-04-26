@@ -24,6 +24,7 @@
 		1A000001000000000000000F /* WaterRecordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000010 /* WaterRecordStore.swift */; };
 		1A0000010000000000000010 /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000011 /* ProgressRingView.swift */; };
 		1A0000010000000000000011 /* WaterAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000012 /* WaterAddButton.swift */; };
+		1A0000010000000000000012 /* DailyRecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000013 /* DailyRecordCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		1A0000020000000000000010 /* WaterRecordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterRecordStore.swift; sourceTree = "<group>"; };
 		1A0000020000000000000011 /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
 		1A0000020000000000000012 /* WaterAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterAddButton.swift; sourceTree = "<group>"; };
+		1A0000020000000000000013 /* DailyRecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			children = (
 				1A0000020000000000000011 /* ProgressRingView.swift */,
 				1A0000020000000000000012 /* WaterAddButton.swift */,
+				1A0000020000000000000013 /* DailyRecordCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				1A000001000000000000000F /* WaterRecordStore.swift in Sources */,
 				1A0000010000000000000010 /* ProgressRingView.swift in Sources */,
 				1A0000010000000000000011 /* WaterAddButton.swift in Sources */,
+				1A0000010000000000000012 /* DailyRecordCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,4 +12,12 @@ enum DateUtils {
     static func timeText(from date: Date) -> String {
         date.formatted(date: .omitted, time: .shortened)
     }
+
+    static func shortDateText(from date: Date) -> String {
+        date.formatted(.dateTime.month(.twoDigits).day(.twoDigits))
+    }
+
+    static func weekdayText(from date: Date) -> String {
+        date.formatted(.dateTime.weekday(.abbreviated))
+    }
 }
