@@ -25,6 +25,7 @@
 		1A0000010000000000000010 /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000011 /* ProgressRingView.swift */; };
 		1A0000010000000000000011 /* WaterAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000012 /* WaterAddButton.swift */; };
 		1A0000010000000000000012 /* DailyRecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000013 /* DailyRecordCard.swift */; };
+		1A0000010000000000000013 /* UserSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000014 /* UserSettingsStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		1A0000020000000000000011 /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
 		1A0000020000000000000012 /* WaterAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterAddButton.swift; sourceTree = "<group>"; };
 		1A0000020000000000000013 /* DailyRecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordCard.swift; sourceTree = "<group>"; };
+		1A0000020000000000000014 /* UserSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				1A0000020000000000000010 /* WaterRecordStore.swift */,
+				1A0000020000000000000014 /* UserSettingsStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				1A0000010000000000000010 /* ProgressRingView.swift in Sources */,
 				1A0000010000000000000011 /* WaterAddButton.swift in Sources */,
 				1A0000010000000000000012 /* DailyRecordCard.swift in Sources */,
+				1A0000010000000000000013 /* UserSettingsStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

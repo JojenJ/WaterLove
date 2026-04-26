@@ -6,18 +6,23 @@ final class HomeViewModel {
     let quickAddAmounts = [100, 200, 300]
 
     private let recordStore: WaterRecordStore
+    private let settingsStore: UserSettingsStore
 
+    var nickname = UserSettings.default.nickname
     var todayTotalAmountML = 0
     var lastDrinkAt: Date?
     var canUndoLastRecord = false
     var dailyTargetAmountML: Int
+    var defaultDrinkAmountML: Int
 
     init(
         recordStore: WaterRecordStore,
-        dailyTargetAmountML: Int = UserSettings.default.dailyTargetAmountML
+        settingsStore: UserSettingsStore
     ) {
         self.recordStore = recordStore
-        self.dailyTargetAmountML = dailyTargetAmountML
+        self.settingsStore = settingsStore
+        self.dailyTargetAmountML = settingsStore.settings.dailyTargetAmountML
+        self.defaultDrinkAmountML = settingsStore.settings.defaultDrinkAmountML
         refreshToday()
     }
 
@@ -117,9 +122,17 @@ final class HomeViewModel {
     }
 
     func refreshToday() {
+        refreshSettings()
         let todayRecords = recordStore.recordsForDate(Date())
         todayTotalAmountML = todayRecords.reduce(0) { $0 + $1.amountML }
         lastDrinkAt = todayRecords.last?.createdAt
         canUndoLastRecord = !todayRecords.isEmpty
+    }
+
+    private func refreshSettings() {
+        let settings = settingsStore.settings
+        nickname = settings.nickname
+        dailyTargetAmountML = settings.dailyTargetAmountML
+        defaultDrinkAmountML = settings.defaultDrinkAmountML
     }
 }

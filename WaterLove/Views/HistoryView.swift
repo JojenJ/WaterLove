@@ -3,8 +3,8 @@ import SwiftUI
 struct HistoryView: View {
     @State private var viewModel: HistoryViewModel
 
-    init(recordStore: WaterRecordStore) {
-        _viewModel = State(initialValue: HistoryViewModel(recordStore: recordStore))
+    init(recordStore: WaterRecordStore, settingsStore: UserSettingsStore) {
+        _viewModel = State(initialValue: HistoryViewModel(recordStore: recordStore, settingsStore: settingsStore))
     }
 
     var body: some View {
@@ -107,6 +107,6 @@ struct HistoryView: View {
 
 #Preview {
     NavigationStack {
-        HistoryView(recordStore: WaterRecordStore.preview)
+        HistoryView(recordStore: WaterRecordStore.preview, settingsStore: UserSettingsStore.preview)
     }
 }

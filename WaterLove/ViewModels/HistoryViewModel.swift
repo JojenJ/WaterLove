@@ -4,18 +4,18 @@ import Observation
 @Observable
 final class HistoryViewModel {
     private let recordStore: WaterRecordStore
-    private let targetAmountML: Int
+    private let settingsStore: UserSettingsStore
     private let dayCount: Int
 
     var summaries: [DailyWaterSummary] = []
 
     init(
         recordStore: WaterRecordStore,
-        targetAmountML: Int = UserSettings.default.dailyTargetAmountML,
+        settingsStore: UserSettingsStore,
         dayCount: Int = 7
     ) {
         self.recordStore = recordStore
-        self.targetAmountML = targetAmountML
+        self.settingsStore = settingsStore
         self.dayCount = dayCount
         refresh()
     }
@@ -56,6 +56,7 @@ final class HistoryViewModel {
     }
 
     func refresh() {
+        let targetAmountML = settingsStore.settings.dailyTargetAmountML
         summaries = recordStore.summariesForRecentDays(dayCount, targetAmountML: targetAmountML)
     }
 }

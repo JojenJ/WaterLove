@@ -4,8 +4,8 @@ struct HomeView: View {
     @State private var viewModel: HomeViewModel
     @State private var isProgressPulsing = false
 
-    init(recordStore: WaterRecordStore) {
-        _viewModel = State(initialValue: HomeViewModel(recordStore: recordStore))
+    init(recordStore: WaterRecordStore, settingsStore: UserSettingsStore) {
+        _viewModel = State(initialValue: HomeViewModel(recordStore: recordStore, settingsStore: settingsStore))
     }
 
     var body: some View {
@@ -40,7 +40,7 @@ struct HomeView: View {
     private var header: some View {
         HStack(alignment: .top, spacing: 14) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("今天也要好好喝水呀，宝宝")
+                Text("今天也要好好喝水呀，\(viewModel.nickname)")
                     .font(.title2.weight(.bold))
                     .foregroundStyle(AppColors.ink)
 
@@ -158,7 +158,7 @@ struct HomeView: View {
                 ForEach(viewModel.quickAddAmounts, id: \.self) { amount in
                     WaterAddButton(
                         amountML: amount,
-                        isRecommended: amount == UserSettings.default.defaultDrinkAmountML
+                        isRecommended: amount == viewModel.defaultDrinkAmountML
                     ) {
                         addWater(amount)
                     }
@@ -201,6 +201,6 @@ struct HomeView: View {
 
 #Preview {
     NavigationStack {
-        HomeView(recordStore: WaterRecordStore.preview)
+        HomeView(recordStore: WaterRecordStore.preview, settingsStore: UserSettingsStore.preview)
     }
 }
